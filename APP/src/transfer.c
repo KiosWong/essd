@@ -54,11 +54,10 @@ uint8_t rcvDataParse(uint8_t *rcv_buff)
 	float ad_valtage = 0;
 	
 	uint8_t *pDataBuf = rcv_buff;
-	/* ÅÐ¶ÏÖ¡Í· */
 	if (strstr((char *)pDataBuf, "7M")) {
 		pDataBuf += 2;
 		
-		/* ÅÐ¶ÏÖ¡Í· */
+
 		if (*pDataBuf == '+') {
 			++pDataBuf;
 			app.led_type = 0;
@@ -75,7 +74,7 @@ uint8_t rcvDataParse(uint8_t *rcv_buff)
 			app.present_recev_type = 1;
 			while(*pDataBuf != '\n') {
 				if(*pDataBuf >= '1' && *pDataBuf <= '4')
-					app.led[*pDataBuf - '0'] = led_off;
+					app.led[*pDataBuf - '1'] = led_off;
 				++pDataBuf;
 			}
 		}
