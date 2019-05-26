@@ -1,5 +1,13 @@
+/**
+ * app/menu.c
+ * 
+ * @brief:
+ * 		logic for the menu realization and element reveal
+ * 		by giving two class of recontruction functions(*_dynamic & *_static)
+ **/
 #include "app.h"
 
+/*static reconstructors, to reveal static element in every page*/
 static void menu_constructor_functions_1_static(void);
 static void menu_constructor_functions_2_static(void);
 static void menu_constructor_functions_3_static(void);
@@ -15,6 +23,7 @@ static void menu_constructor_dual_static(void);
 static void menu_constructor_remote_1_static(void);
 static void menu_constructor_remote_2_static(void);
 
+/*dynamic reconstructors, to reveal dynamic element in every page*/
 static void menu_constructor_functions_1_dynamic(void);
 static void menu_constructor_functions_2_dynamic(void);
 static void menu_constructor_functions_3_dynamic(void);
@@ -33,6 +42,7 @@ static void menu_constructor_remote_2_dynamic(void);
 extern long timestamp;
 
 menu_t menu;
+/*packet contains a whole bunch of system status*/ 
 app_status_t app = {
 	{led_off, led_off, led_off, led_off},
 	9,
@@ -40,6 +50,7 @@ app_status_t app = {
 	10,
 };
 
+/*static constructor class*/
 void (*menu_constructors_static[5][4])() = {
 	{menu_constructor_functions_1_static, 	menu_constructor_functions_2_static, 	menu_constructor_functions_3_static, 	menu_constructor_functions_4_static	},
 	{menu_constructor_gesture_static, 	NULL, 					NULL, 					NULL					},
@@ -48,6 +59,7 @@ void (*menu_constructors_static[5][4])() = {
 	{menu_constructor_remote_1_static, 	menu_constructor_remote_2_static,	NULL, 					NULL					}
 };
 
+/*dynamic constructor class*/
 void (*menu_constructors_dynamic[5][4])() = {
 	{menu_constructor_functions_1_dynamic, 	menu_constructor_functions_2_dynamic, 	menu_constructor_functions_3_dynamic, 	menu_constructor_functions_4_dynamic	},
 	{menu_constructor_gesture_dynamic, 	NULL, 					NULL, 					NULL					},
@@ -62,9 +74,9 @@ void menu_init()
 	menu.page_index = 0;
 	menu.sub_page_index = 0;
 	menu.flagIsMainMenu = 1;
-	GUI_DispStringHCenterAt("Êý×ÖÏµÍ³×ÛºÏÉè¼Æ", (GUI_GetXSize() + 0) / 2, 16);
-	GUI_DispStringHCenterAt("Íõ³¬ 16041531", (GUI_GetXSize() + 0) / 2, 32);
-	GUI_DispStringHCenterAt("Advisor: ÔøØ¹", (GUI_GetXSize() + 0) / 2, 48);
+	GUI_DispStringHCenterAt("ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½Ûºï¿½ï¿½ï¿½ï¿½", (GUI_GetXSize() + 0) / 2, 16);
+	GUI_DispStringHCenterAt("ï¿½ï¿½ï¿½ï¿½ 16041531", (GUI_GetXSize() + 0) / 2, 32);
+	GUI_DispStringHCenterAt("Advisor: ï¿½ï¿½Ø¹", (GUI_GetXSize() + 0) / 2, 48);
 	GUI_Update();
 	Led_Startup_1();
 	GUI_Clear();
@@ -79,19 +91,19 @@ void menu_constructor_main_static()
 	
 	GUI_Clear();
 	
-	GUI_DispStringAt("µç×ÓÏµÍ³×ÛºÏ¿Î³ÌÉè¼Æ", 2, 2);
+	GUI_DispStringAt("ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ÛºÏ¿Î³ï¿½ï¿½ï¿½ï¿½", 2, 2);
 	
 	if(menu.page_index < 3) {
-		GUI_DispStringAt("¡ú", 10, 20 + menu.page_index * 14);
-		GUI_DispStringAt("1.ÏµÍ³²âÊÔ", 25, 20);
-		GUI_DispStringAt("2.×ËÌ¬½âËã", 25, 34);
-		GUI_DispStringAt("3.Êý¾Ý´«Êä", 25, 48);
+		GUI_DispStringAt("ï¿½ï¿½", 10, 20 + menu.page_index * 14);
+		GUI_DispStringAt("1.ÏµÍ³ï¿½ï¿½ï¿½ï¿½", 25, 20);
+		GUI_DispStringAt("2.ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½", 25, 34);
+		GUI_DispStringAt("3.ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½", 25, 48);
 		GUI_DispStringAt("1/2", 106, 50);
 	}
 	else if(menu.page_index < 5) {
-		GUI_DispStringAt("¡ú", 10, 20 + (menu.page_index - 3) * 14);
-		GUI_DispStringAt("4.Ë«»úÍ¨ÐÅ", 25, 20);
-		GUI_DispStringAt("5.Ô¶³Ì¿ØÖÆ", 25, 34);
+		GUI_DispStringAt("ï¿½ï¿½", 10, 20 + (menu.page_index - 3) * 14);
+		GUI_DispStringAt("4.Ë«ï¿½ï¿½Í¨ï¿½ï¿½", 25, 20);
+		GUI_DispStringAt("5.Ô¶ï¿½Ì¿ï¿½ï¿½ï¿½", 25, 34);
 		GUI_DispStringAt("2/2", 106, 50);
 	}
 	
@@ -101,29 +113,29 @@ static void menu_constructor_functions_1_static()
 {
 	GUI_Clear();
 	
-	GUI_DispStringAt("ÏµÍ³²âÊÔ", 2, 2);
+	GUI_DispStringAt("ÏµÍ³ï¿½ï¿½ï¿½ï¿½", 2, 2);
 	GUI_DispStringAt("1/4", 108, 2);
 	
 	GUI_DispStringAt("LED×´Ì¬:", 8, 21);
-	GUI_DispStringAt("°´¼ü×´Ì¬:", 8, 39);
+	GUI_DispStringAt("ï¿½ï¿½ï¿½ï¿½×´Ì¬:", 8, 39);
 }
 
 static void menu_constructor_functions_2_static()
 {
 	GUI_Clear();
 	
-	GUI_DispStringAt("ÏµÍ³²âÊÔ", 2, 2);
+	GUI_DispStringAt("ÏµÍ³ï¿½ï¿½ï¿½ï¿½", 2, 2);
 	GUI_DispStringAt("2/4", 108, 2);
 	
-	GUI_DispStringAt("ADÊý¾Ý", 8, 21);
-	GUI_DispStringAt("µçÑ¹Êý¾Ý:", 72, 21);
+	GUI_DispStringAt("ADï¿½ï¿½ï¿½ï¿½", 8, 21);
+	GUI_DispStringAt("ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½:", 72, 21);
 }
 
 static void menu_constructor_functions_3_static()
 {
 	GUI_Clear();
 	
-	GUI_DispStringAt("ÏµÍ³²âÊÔ", 2, 2);
+	GUI_DispStringAt("ÏµÍ³ï¿½ï¿½ï¿½ï¿½", 2, 2);
 	GUI_DispStringAt("3/4", 108, 2);
 	
 	GUI_DispStringAt("AccX", 14, 16);
@@ -135,7 +147,7 @@ static void menu_constructor_functions_4_static()
 {
 	GUI_Clear();
 	
-	GUI_DispStringAt("ÏµÍ³²âÊÔ", 2, 2);
+	GUI_DispStringAt("ÏµÍ³ï¿½ï¿½ï¿½ï¿½", 2, 2);
 	GUI_DispStringAt("4/4", 108, 2);
 	
 	GUI_DispStringAt("GyroX", 10, 16);
@@ -147,7 +159,7 @@ static void menu_constructor_gesture_static()
 {
 	GUI_Clear();
 	
-	GUI_DispStringAt("×ËÌ¬½âËã", 2, 2);
+	GUI_DispStringAt("ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½", 2, 2);
 	GUI_DispStringAt("1/1", 108, 2);
 	
 	GUI_DispStringAt("Pitch:", 8, 21);
@@ -159,54 +171,54 @@ static void menu_constructor_transfer_1_static()
 {
 	GUI_Clear();
 	
-	GUI_DispStringAt("Êý¾Ý´«Êä", 2, 2);
+	GUI_DispStringAt("ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½", 2, 2);
 	GUI_DispStringAt("1/2", 108, 2);
 	
-	GUI_DispStringAt("Ö¡¸ñÊ½:", 8, 20);
-	GUI_DispStringAt("·¢ËÍ¼ä¸ô:", 8, 34);
-	GUI_DispStringAt("·¢ËÍ¼ÆÊý:", 8, 48);
+	GUI_DispStringAt("Ö¡ï¿½ï¿½Ê½:", 8, 20);
+	GUI_DispStringAt("ï¿½ï¿½ï¿½Í¼ï¿½ï¿½:", 8, 34);
+	GUI_DispStringAt("ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½:", 8, 48);
 }
 
 static void menu_constructor_transfer_2_static()
 {
 	GUI_Clear();
 	
-	GUI_DispStringAt("Êý¾Ý´«Êä", 2, 2);
+	GUI_DispStringAt("ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½", 2, 2);
 	GUI_DispStringAt("2/2", 108, 2);
 	
-	GUI_DispStringAt("½ÓÊÕ¼ÆÊý:", 8, 20);
-	GUI_DispStringAt("Ö¸ÁîÀàÐÍ:", 8, 34);
-	GUI_DispStringAt("Ö¸ÁîÀ´Ô´:", 8, 48);
+	GUI_DispStringAt("ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½:", 8, 20);
+	GUI_DispStringAt("Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:", 8, 34);
+	GUI_DispStringAt("Ö¸ï¿½ï¿½ï¿½ï¿½Ô´:", 8, 48);
 }
 
 static void menu_constructor_dual_static()
 {
 	GUI_Clear();
 	
-	GUI_DispStringAt("Ë«»úÍ¨ÐÅ", 2, 2);
+	GUI_DispStringAt("Ë«ï¿½ï¿½Í¨ï¿½ï¿½", 2, 2);
 	GUI_DispStringAt("1/1", 108, 2);
 	
-	GUI_DispStringAt("1.Ä£Ê½ÇÐ»»:", 19, 20);
-	GUI_DispStringAt("2.Æ¥ÅäÉè±¸:", 19, 34);
-	GUI_DispStringAt("3.ÎÕÊÖ´ÎÊý:", 19, 48);
+	GUI_DispStringAt("1.Ä£Ê½ï¿½Ð»ï¿½:", 19, 20);
+	GUI_DispStringAt("2.Æ¥ï¿½ï¿½ï¿½è±¸:", 19, 34);
+	GUI_DispStringAt("3.ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½:", 19, 48);
 }
 
 static void menu_constructor_remote_1_static()
 {
 	GUI_Clear();
 	
-	GUI_DispStringAt("Ô¶³Ì¿ØÖÆ", 2, 2);
+	GUI_DispStringAt("Ô¶ï¿½Ì¿ï¿½ï¿½ï¿½", 2, 2);
 	GUI_DispStringAt("1/2", 108, 2);
 	
-	GUI_DispStringAt("Ô¶³Ì¿ª¹Ø:", 8, 20);
-	GUI_DispStringAt("Á¬½ÓÊ±³¤:", 8, 34);
+	GUI_DispStringAt("Ô¶ï¿½Ì¿ï¿½ï¿½ï¿½:", 8, 20);
+	GUI_DispStringAt("ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½:", 8, 34);
 }
 
 static void menu_constructor_remote_2_static()
 {
 	GUI_Clear();
 	
-	GUI_DispStringAt("Ô¶³Ì¿ØÖÆ", 2, 2);
+	GUI_DispStringAt("Ô¶ï¿½Ì¿ï¿½ï¿½ï¿½", 2, 2);
 	GUI_DispStringAt("2/2", 108, 2);
 }
 
@@ -216,19 +228,19 @@ static void menu_constructor_main_dynamic()
 	
 	GUI_Clear();
 	
-	GUI_DispStringAt("Êý×ÖÏµÍ³¿Î³ÌÉè¼Æ", 2, 2);
+	GUI_DispStringAt("ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½Î³ï¿½ï¿½ï¿½ï¿½", 2, 2);
 	
 	if(menu.page_index < 3) {
-		GUI_DispStringAt("¡ú", 10, 20 + menu.page_index * 14);
-		GUI_DispStringAt("1.ÏµÍ³²âÊÔ", 25, 20);
-		GUI_DispStringAt("2.×ËÌ¬½âËã", 25, 34);
-		GUI_DispStringAt("3.Êý¾Ý´«Êä", 25, 48);
+		GUI_DispStringAt("ï¿½ï¿½", 10, 20 + menu.page_index * 14);
+		GUI_DispStringAt("1.ÏµÍ³ï¿½ï¿½ï¿½ï¿½", 25, 20);
+		GUI_DispStringAt("2.ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½", 25, 34);
+		GUI_DispStringAt("3.ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½", 25, 48);
 		GUI_DispStringAt("1/2", 106, 50);
 	}
 	else if(menu.page_index < 5) {
-		GUI_DispStringAt("¡ú", 10, 20 + (menu.page_index - 3) * 14);
-		GUI_DispStringAt("4.Ë«»úÍ¨ÐÅ", 25, 20);
-		GUI_DispStringAt("5.Ô¶³Ì¿ØÖÆ", 25, 34);
+		GUI_DispStringAt("ï¿½ï¿½", 10, 20 + (menu.page_index - 3) * 14);
+		GUI_DispStringAt("4.Ë«ï¿½ï¿½Í¨ï¿½ï¿½", 25, 20);
+		GUI_DispStringAt("5.Ô¶ï¿½Ì¿ï¿½ï¿½ï¿½", 25, 34);
 		GUI_DispStringAt("2/2", 106, 50);
 	}
 	
@@ -239,11 +251,11 @@ static void menu_constructor_functions_1_dynamic()
 	char disp_buffer[20];
 	
 	memset(disp_buffer, 0, 20);
-	sprintf(disp_buffer, "%s%s%s%s", ((LED1 == 0) ? "¡ð" : "¡ñ"), ((LED2 == 0) ? "¡ð" : "¡ñ"), ((LED3 == 0) ? "¡ð" : "¡ñ"), ((LED4 == 0) ? "¡ð" : "¡ñ"));
+	sprintf(disp_buffer, "%s%s%s%s", ((LED1 == 0) ? "ï¿½ï¿½" : "ï¿½ï¿½"), ((LED2 == 0) ? "ï¿½ï¿½" : "ï¿½ï¿½"), ((LED3 == 0) ? "ï¿½ï¿½" : "ï¿½ï¿½"), ((LED4 == 0) ? "ï¿½ï¿½" : "ï¿½ï¿½"));
 	GUI_DispStringAt(disp_buffer, 68, 21);
 	
 	memset(disp_buffer, 0, 20);
-	sprintf(disp_buffer, "%s%s%s%s", ((KEY1 == 0) ? "¨y" : "¨"), ((KEY2 == 0) ? "¨y" : "¨"), ((KEY3 == 0) ? "¨y" : "¨"), ((KEY4 == 0) ? "¨y" : "¨"));
+	sprintf(disp_buffer, "%s%s%s%s", ((KEY1 == 0) ? "ï¿½y" : "ï¿½ï¿½"), ((KEY2 == 0) ? "ï¿½y" : "ï¿½ï¿½"), ((KEY3 == 0) ? "ï¿½y" : "ï¿½ï¿½"), ((KEY4 == 0) ? "ï¿½y" : "ï¿½ï¿½"));
 	GUI_DispStringAt(disp_buffer, 68, 39);
 }
 
@@ -335,7 +347,7 @@ static void menu_constructor_gesture_dynamic()
 	
 	GUI_ClearRect(58, 21, 70, 12);
 	memset(disp_buffer, 0, 20);
-	sprintf(disp_buffer, "%.2f¡ã", fAX);
+	sprintf(disp_buffer, "%.2fï¿½ï¿½", fAX);
 	GUI_DispStringAt(disp_buffer, 58, 21);
 	memset(disp_buffer, 0, 20);
 	sprintf(disp_buffer, "%d%%", (int)(((fAX + 180) / 360) * 100));
@@ -343,7 +355,7 @@ static void menu_constructor_gesture_dynamic()
 	
 	GUI_ClearRect(58, 34, 70, 12);
 	memset(disp_buffer, 0, 20);
-	sprintf(disp_buffer, "%.2f¡ã", fAY);
+	sprintf(disp_buffer, "%.2fï¿½ï¿½", fAY);
 	GUI_DispStringAt(disp_buffer, 58, 34);
 	memset(disp_buffer, 0, 20);
 	sprintf(disp_buffer, "%d%%", (int)(((fAY + 180) / 360) * 100));
@@ -351,7 +363,7 @@ static void menu_constructor_gesture_dynamic()
 	
 	GUI_ClearRect(58, 47, 70, 12);
 	memset(disp_buffer, 0, 20);
-	sprintf(disp_buffer, "%.2f¡ã", fAZ);
+	sprintf(disp_buffer, "%.2fï¿½ï¿½", fAZ);
 	GUI_DispStringAt(disp_buffer, 58, 47);
 	memset(disp_buffer, 0, 20);
 	sprintf(disp_buffer, "%d%%", (int)(((fAZ + 180) / 360) * 100));
@@ -365,15 +377,15 @@ static void menu_constructor_transfer_1_dynamic()
 	memset(disp_buffer, 0, 20);
 	switch(app.present_upload_frame) {
 		case 0 :
-			sprintf(disp_buffer, "7MBD+Êý¾Ý+\\n");
+			sprintf(disp_buffer, "7MBD+ï¿½ï¿½ï¿½ï¿½+\\n");
 		break;
 		
 		case 1 :
-			sprintf(disp_buffer, "7MY+Êý¾Ý+\\n");
+			sprintf(disp_buffer, "7MY+ï¿½ï¿½ï¿½ï¿½+\\n");
 		break;
 		
 		case 2 :
-			sprintf(disp_buffer, "7MR+Êý¾Ý+\\n");
+			sprintf(disp_buffer, "7MR+ï¿½ï¿½ï¿½ï¿½+\\n");
 		break;
 		
 		default : 
@@ -413,19 +425,19 @@ static void menu_constructor_transfer_2_dynamic()
 		break;
 		
 		case 1 :
-			sprintf(disp_buffer, "ÁÁÃð¿ØÖÆ");
+			sprintf(disp_buffer, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		break;
 		
 		case 2 :
-			sprintf(disp_buffer, "¶¯Ì¬¿ØÖÆ");
+			sprintf(disp_buffer, "ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½");
 		break;
 		
 		case 3 :
-			sprintf(disp_buffer, "µ÷¹â¿ØÖÆ");
+			sprintf(disp_buffer, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		break;
 		
 		case 4 :
-			sprintf(disp_buffer, "ÉÏ´«¿ØÖÆ");
+			sprintf(disp_buffer, "ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½");
 		break;
 		
 		default : 
@@ -440,7 +452,7 @@ static void menu_constructor_transfer_2_dynamic()
 		break;
 		
 		case 1 :
-			sprintf(disp_buffer, "ÉÏÎ»»ú");
+			sprintf(disp_buffer, "ï¿½ï¿½Î»ï¿½ï¿½");
 		break;
 		
 		case 2 :
@@ -462,21 +474,21 @@ static void menu_constructor_dual_dynamic()
 	memset(disp_buffer, 0, 20);
 	if(app.pre_dual_mode == 0) {
 		if(app.dual_mode == 0)
-			sprintf(disp_buffer, "¹Ø ¡Ì");
+			sprintf(disp_buffer, "ï¿½ï¿½ ï¿½ï¿½");
 		else
-			sprintf(disp_buffer, "¹Ø ¡Á");
+			sprintf(disp_buffer, "ï¿½ï¿½ ï¿½ï¿½");
 	}
 	else if(app.pre_dual_mode == 1) {
 		if(app.dual_mode == 1)
-			sprintf(disp_buffer, "´Ó ¡Ì");
+			sprintf(disp_buffer, "ï¿½ï¿½ ï¿½ï¿½");
 		else
-			sprintf(disp_buffer, "´Ó ¡Á");
+			sprintf(disp_buffer, "ï¿½ï¿½ ï¿½ï¿½");
 	}
 	else if(app.pre_dual_mode == 2) {
 		if(app.dual_mode == 2)
-			sprintf(disp_buffer, "Ö÷ ¡Ì");
+			sprintf(disp_buffer, "ï¿½ï¿½ ï¿½ï¿½");
 		else
-			sprintf(disp_buffer, "Ö÷ ¡Á");
+			sprintf(disp_buffer, "ï¿½ï¿½ ï¿½ï¿½");
 	}
 	GUI_ClearRect(90, 20, 38, 12);
 	GUI_DispStringAt(disp_buffer, 90, 20);
@@ -504,9 +516,9 @@ static void menu_constructor_remote_1_dynamic()
 	
 	memset(disp_buffer, 0, 20);
 	if(app.remote_switch == 0)
-		sprintf(disp_buffer, "¹Ø");
+		sprintf(disp_buffer, "ï¿½ï¿½");
 	if(app.remote_switch == 1)
-		sprintf(disp_buffer, "¿ª");
+		sprintf(disp_buffer, "ï¿½ï¿½");
 	GUI_ClearRect(65, 20, 63, 12);
 	GUI_DispStringAt(disp_buffer, 65, 20);
 	

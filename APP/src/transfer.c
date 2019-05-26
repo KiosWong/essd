@@ -1,5 +1,26 @@
+/**
+ * app/transfer.c
+ * 
+ * @brief:
+ * 		transfer data to upper computer & APP
+ * 		provide interfaces for upstreaming and downstreaming data
+ **/
+
 #include "transfer.h"
 
+/**
+ * uploadBasicStatus
+ * 
+ * @brief:
+ * 		uploading led and key status
+ * 
+ * @param:
+ * 		%NUL
+ * 
+ * @retval:
+ * 		uint8_t (upload length)
+ * 
+ **/
 uint8_t uploadBasicStatus()
 {
 	uint8_t dataBuffer[16];
@@ -15,6 +36,25 @@ uint8_t uploadBasicStatus()
 	return strlen((const char *)dataBuffer);
 }
 
+/**
+ * uploadSamplingData
+ * 
+ * @brief:
+ * 		uploading MPU6050 raw data and AD value
+ * 
+ * @param:
+ * 		uint16_t adval		AD value
+ * 		short mpu_ax		acc_x from MPU6050
+ *  	short mpu_ay		acc_y from MPU6050
+ *    	short mpu_az		acc_z from MPU6050
+ *    	short mpu_gx		gyro_x from MPU6050
+ *    	short mpu_gy		gyro_y from MPU6050
+ *    	short mpu_gz		gyro_z from MPU6050
+ * 
+ * @retval:
+ * 		uint8_t (upload length)
+ * 
+ **/
 uint8_t uploadSamplingData(uint16_t adval, short mpu_ax, short mpu_ay, short mpu_az, short mpu_gx, short mpu_gy, short mpu_gz)
 {
 	uint8_t dataBuffer[50];
@@ -25,6 +65,22 @@ uint8_t uploadSamplingData(uint16_t adval, short mpu_ax, short mpu_ay, short mpu
 	return strlen((const char *)dataBuffer);
 }
 
+/**
+ * uploadProcessedData
+ * 
+ * @brief:
+ * 		uploading MPU6050 processed data and AD value
+ * 
+ * @param:
+ * 		uint16_t adval		AD value
+ * 		float mpu_fAX		pitch
+ *  	float mpu_fAY		roll
+ *    	float mpu_fAZ		yaw
+ * 
+ * @retval:
+ * 		uint8_t (upload length)
+ * 
+ **/
 uint8_t uploadProcessedData(uint16_t adval, float mpu_fAX, float mpu_fAY, float mpu_fAZ)
 {
 	uint8_t dataBuffer[50];
@@ -35,6 +91,19 @@ uint8_t uploadProcessedData(uint16_t adval, float mpu_fAX, float mpu_fAY, float 
 	return strlen((const char *)dataBuffer);
 }
 
+/**
+ * uploadProcessedData
+ * 
+ * @brief:
+ * 		uploading MPU6050 processed data and AD value
+ * 
+ * @param:
+ * 		uint8_t *name 		name of Bluetooth module
+ * 
+ * @retval:
+ * 		uint8_t (upload length)
+ * 
+ **/
 uint8_t uploadBlueToothName(uint8_t *name)
 {
 	uint8_t dataBuffer[50];
@@ -44,6 +113,19 @@ uint8_t uploadBlueToothName(uint8_t *name)
 	return strlen((const char *)dataBuffer);
 }
 
+/**
+ * rcvDataParse
+ * 
+ * @brief:
+ * 		uploading MPU6050 processed data and AD value
+ * 
+ * @param:
+ * 		uint8_t *rcv_buff 	usart receive buffer
+ * 
+ * @retval:
+ * 		uint8_t (parse result)
+ * 
+ **/
 uint8_t rcvDataParse(uint8_t *rcv_buff)
 {
 	long long time_ms;
